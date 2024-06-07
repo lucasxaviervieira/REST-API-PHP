@@ -1,0 +1,190 @@
+openapi: 3.0.0
+info:
+  title: CRUD-PHP
+  description: This is a sample API documentation
+  version: 1.0.0
+servers:
+  - url: http://ambienteteste/
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # Optional, for
+tags:
+  - name: Authentication and Authorization
+    description: Operations related to auth
+  - name: Tasks
+    description: Operations related to tasks
+
+paths:
+  /api/routes/auth.php:
+    post:
+      summary: Login
+      tags:
+        - Authentication and Authorization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The username
+                password:
+                  type: string
+                  description: The password
+      responses:
+        "200":
+          description: The user with the specified ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Bearer Token
+        "404":
+          description: User not found
+
+  /api/routes/tasks.php:
+    get:
+      summary: Retrieve a list of tasks
+      tags:
+        - Tasks
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: query
+          description: ID of the data to delete
+          required: false
+          schema:
+            type: integer
+      description: Retrieve a list of tasks from the database
+      responses:
+        "200":
+          description: A list of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    nome_projeto:
+                      type: string
+                    nome_tarefa:
+                      type: string
+                    assinado_por:
+                      type: string
+                    data_inicio:
+                      type: string
+                      format: date
+                    dias_requerido:
+                      type: integer
+                    data_final:
+                      type: string
+                      format: date
+                    progresso:
+                      type: integer
+    post:
+      summary: Create a new task
+      tags:
+        - Tasks
+      security:
+        - bearerAuth: []
+      description: Create a new task in the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome_projeto:
+                  type: string
+                nome_tarefa:
+                  type: string
+                assinado_por:
+                  type: string
+                data_inicio:
+                  type: string
+                  format: date
+                data_final:
+                  type: string
+                  format: date
+                progresso:
+                  type: integer
+      responses:
+        "200":
+          description: The newly created task
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    put:
+      summary: Update task by ID
+      description: Update task identified by the provided ID
+      tags:
+        - Tasks
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                nome_projeto:
+                  type: string
+                nome_tarefa:
+                  type: string
+                assinado_por:
+                  type: string
+                data_inicio:
+                  type: string
+                  format: date
+                data_final:
+                  type: string
+                  format: date
+                progresso:
+                  type: integer
+      responses:
+        "200":
+          description: Task updated successfully
+        "400":
+          description: Invalid request body
+        "404":
+          description: Task not found
+
+    delete:
+      tags:
+        - Tasks
+      security:
+        - bearerAuth: []
+      summary: Delete task by ID
+      description: Delete task identified by the provided ID
+      parameters:
+        - name: id
+          in: query
+          description: ID of the data to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Data successfully deleted
+        "404":
+          description: Data not found
