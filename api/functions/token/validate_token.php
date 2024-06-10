@@ -21,10 +21,16 @@ $decodedToken = validateToken($token, $privKey);
 $isExp = tokenIsExp($decodedToken['exp']);
 
 
-if (!$decodedToken || !isset($decodedToken['user_id']) || isset($isExp)) {
+if (!$decodedToken || !isset($decodedToken['user_id'])) {
 
   header('HTTP/1.1 401 Unauthorized');
+  header("Content-Type: application/json; charset=UTF-8");
   echo json_encode(['error' => 'Unauthorized']);
+  exit;
+} elseif (isset($isExp)) {
+  header('HTTP/1.1 401 Token Expired');
+  header("Content-Type: application/json; charset=UTF-8");
+  echo json_encode(['error' => 'Unauthorized, token is expired']);
   exit;
 }
 

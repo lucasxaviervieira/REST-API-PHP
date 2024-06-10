@@ -20,7 +20,7 @@ function loginUser($username, $password)
 
 function generateToken($userId)
 {
-  $expiryTime = time() + (60 * 60);
+  $expiryTime = time() + (5 * 24 * 60 * 60);
   $payload = [
     'user_id' => $userId,
     'exp' => $expiryTime,

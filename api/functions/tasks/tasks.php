@@ -58,7 +58,6 @@ function updateTask($id, $data)
 }
 
 
-// Function to delete a task from the database
 function deleteTask($id)
 {
   global $pdo;
