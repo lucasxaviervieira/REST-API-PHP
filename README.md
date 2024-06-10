@@ -7,31 +7,70 @@ Este projeto visa usar o minimo bibliotecas e frameworks, com foco no aprendizad
 ## Instalação e Configuração
 
 - Com o PostgreSQL instalado, inicie o PGAdmin
-- Com o Xampp instalado, abra no navegador essa url --> http://localhost/db/schemas/main.php
-- Após isso, troque a chave secreta da API.
+- Com o Xampp instalado, abra no navegador essa url --> http://localhost/db/main.php
+- Finalizado os passos, a utilização da API deve estar funcionado.
 
 ## Documentação da API
+
+#### Authentication and Authorization
+
+```http
+  POST /api/routes/auth.php
+```
+
+| Parâmetro  | Tipo     |
+| :--------- | :------- |
+| `username` | `string` |
+| `password` | `string` |
 
 #### Retorna todos os itens
 
 ```http
-  GET /api/items
+  GET /api/routes/tasks.php
 ```
 
-| Parâmetro | Tipo     | Descrição                           |
-| :-------- | :------- | :---------------------------------- |
-| `api_key` | `string` | **Obrigatório**. A chave da sua API |
+| Parâmetro      | Tipo     | Descrição                           |
+| :------------- | :------- | :---------------------------------- |
+| `Bearer Token` | `string` | **Obrigatório**. A chave da sua API |
 
 #### Retorna um item
 
 ```http
-  GET /api/items/${id}
+  GET /api/routes/tasks.php?id=${id}
 ```
 
-| Parâmetro | Tipo     | Descrição                                   |
-| :-------- | :------- | :------------------------------------------ |
-| `id`      | `string` | **Obrigatório**. O ID do item que você quer |
+| Parâmetro      | Tipo     | Descrição                           |
+| :------------- | :------- | :---------------------------------- |
+| `Bearer Token` | `string` | **Obrigatório**. A chave da sua API |
 
-#### add(num1, num2)
+#### Cria um item
 
-Recebe dois números e retorna a sua soma.
+```http
+  POST /api/routes/tasks.php
+```
+
+| Parâmetro      | Tipo     | Descrição                              |
+| :------------- | :------- | :------------------------------------- |
+| `bodyJson`     | `object` | **Obrigatório**. O objeto a ser criado |
+| `Bearer Token` | `string` | **Obrigatório**. A chave da sua API    |
+
+#### Edita um item
+
+```http
+  PUT /api/routes/tasks.php
+```
+
+| Parâmetro      | Tipo     | Descrição                               |
+| :------------- | :------- | :-------------------------------------- |
+| `bodyJson`     | `object` | **Obrigatório**. O objeto a ser editado |
+| `Bearer Token` | `string` | **Obrigatório**. A chave da sua API     |
+
+#### Deleta um item
+
+```http
+  PUT /api/routes/tasks.php?id=${id}
+```
+
+| Parâmetro      | Tipo     | Descrição                           |
+| :------------- | :------- | :---------------------------------- |
+| `Bearer Token` | `string` | **Obrigatório**. A chave da sua API |
