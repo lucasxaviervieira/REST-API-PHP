@@ -1,10 +1,10 @@
 <?php
 
-include "/xampp/htdocs/db/config.php";
+include "/xampp/htdocs/api/db/config.php";
 
 include "/xampp/htdocs/api/functions/auth/auth.php";
 
-include "/xampp/htdocs/api/functions/auth/secret_key.php";
+include "/xampp/htdocs/api/functions/auth/decrypt.php";
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");

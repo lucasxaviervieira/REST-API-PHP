@@ -1,6 +1,6 @@
 <?php
 
-include "/xampp/htdocs/db/config.php";
+include "/xampp/htdocs/api/db/config.php";
 
 include "/xampp/htdocs/api/functions/token/validate_token.php";
 
