@@ -2,6 +2,7 @@
 date_default_timezone_set('America/Sao_Paulo');
 
 include "/xampp/htdocs/api/functions/token/header.php";
+include "/xampp/htdocs/api/functions/secret_key.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
   header("Content-Type: text/plain");
@@ -15,7 +16,7 @@ $authorizationHeader = $headers['Authorization'] ?? '';
 $token = str_replace('Bearer ', '', $authorizationHeader);
 
 
-include "/xampp/htdocs/api/secret_key.php";
+$secretKey = getSecretKey();
 $decodedToken = validateToken($token, $secretKey);
 
 $isExp = tokenIsExp($decodedToken['exp']);

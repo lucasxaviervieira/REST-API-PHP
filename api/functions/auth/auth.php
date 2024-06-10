@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set('America/Sao_Paulo');
 
+include "/xampp/htdocs/api/functions/secret_key.php";
 
 function loginUser($username, $password)
 {
@@ -21,7 +22,7 @@ function loginUser($username, $password)
 
 function generateToken($userId)
 {
-  include "/xampp/htdocs/api/secret_key.php";
+  $secretKey = getSecretKey();
   $expiryTime = time() + (5 * 24 * 60 * 60);
   $payload = [
     'user_id' => $userId,
