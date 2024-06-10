@@ -1,6 +1,5 @@
 <?php
 
-include "/xampp/htdocs/db/schemas/tasks.php";
 try {
 
   $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
@@ -25,9 +24,9 @@ try {
             progresso INTEGER
         )";
     $pdo->exec($createTableSql);
-    echo "Table 'tarefa_projeto' created successfully";
+    echo "Table 'tarefa_projeto' created successfully\n";
   } else {
-    echo "Table 'tarefa_projeto' already exists";
+    echo "Table 'tarefa_projeto' already exists\n";
   }
 } catch (PDOException $e) {
   echo "Error: " . $e->getMessage();

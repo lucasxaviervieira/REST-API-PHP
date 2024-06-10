@@ -1,31 +1,24 @@
 <?php
 
 $host = 'localhost';
-$dbname = 'crud-php';
+$port = '5432';
+$dbname = 'crud_php';
 $username = 'postgres';
 $password = '123';
-$desiredDatabaseName = 'crud-php';
 
 try {
-  $pdo = new PDO("pgsql:host=$host", $username, $password);
+  $pdo = new PDO("pgsql:host=$host;port=$port", $username, $password);
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-  $sql = "SELECT 1 FROM pg_database WHERE datname = :dbname";
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute([':dbname' => $desiredDatabaseName]);
-  $databaseExists = $stmt->fetchColumn();
+  $stmt = $pdo->prepare("SELECT 1 FROM pg_catalog.pg_database WHERE datname = :dbname");
+  $stmt->execute(array(':dbname' => $dbname));
 
-  if ($databaseExists) {
-    $pdo = new PDO("pgsql:host=$host;dbname=$desiredDatabaseName", $username, $password);
-    echo "Connected to database '$desiredDatabaseName'";
+  if (!$stmt->fetch(PDO::FETCH_ASSOC)) {
+    $pdo->exec("CREATE DATABASE $dbname");
+    echo "Database '$dbname' created successfully.\n";
   } else {
-    $sql = "CREATE DATABASE $desiredDatabaseName";
-    $pdo->exec($sql);
-    echo "Database '$desiredDatabaseName' created successfully";
-
-    $pdo = new PDO("pgsql:host=$host;dbname=$desiredDatabaseName", $username, $password);
-    echo "Connected to database '$desiredDatabaseName'";
+    echo "Database '$dbname' already exists.\n";
   }
 } catch (PDOException $e) {
-  echo "Error: " . $e->getMessage();
+  die("Error: " . $e->getMessage());
 }

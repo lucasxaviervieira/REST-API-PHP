@@ -1,6 +1,5 @@
 <?php
 
-include "/xampp/htdocs/db/config.php";
 
 try {
   $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
@@ -20,9 +19,9 @@ try {
             password VARCHAR(255) NOT NULL
         )";
     $pdo->exec($createTableSql);
-    echo "Table 'users' created successfully";
+    echo "Table 'users' created successfully\n";
   } else {
-    echo "Table 'users' already exists";
+    echo "Table 'users' already exists\n";
   }
 
   $checkUserSql = "SELECT EXISTS (
@@ -36,9 +35,9 @@ try {
     $insertUserSql = "INSERT INTO users (username, password) 
                           VALUES ('admin', '123')";
     $pdo->exec($insertUserSql);
-    echo "User 'admin' inserted successfully";
+    echo "User 'admin' inserted successfully\n";
   } else {
-    echo "User 'admin' already exists";
+    echo "User 'admin' already exists\n";
   }
 } catch (PDOException $e) {
   echo "Error: " . $e->getMessage();
