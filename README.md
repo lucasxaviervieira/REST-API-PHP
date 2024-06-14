@@ -7,7 +7,7 @@ Este projeto visa usar o minimo bibliotecas e frameworks, com foco no aprendizad
 ## Instalação e Configuração
 
 - Com o PostgreSQL instalado, inicie o PGAdmin
-- Com o Xampp instalado, abra no navegador essa url --> http://localhost/db/main.php
+- Com o Xampp instalado, para criar ou acessar o banco de dados no PostgreSQL, abra no navegador essa url --> [start-db]
 - Finalizado os passos, a utilização da API deve estar funcionado.
 
 ## Documentação da API
@@ -74,3 +74,5 @@ Este projeto visa usar o minimo bibliotecas e frameworks, com foco no aprendizad
 | Parâmetro      | Tipo     | Descrição                           |
 | :------------- | :------- | :---------------------------------- |
 | `Bearer Token` | `string` | **Obrigatório**. A chave da sua API |
+
+[start-db]: http://localhost/db/main.php
